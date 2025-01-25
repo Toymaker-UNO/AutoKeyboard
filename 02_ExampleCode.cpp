@@ -1,4 +1,5 @@
-// "simple_xmlss.hpp" can be downloaded from https://github.com/Toymaker-UNO/SimpleXmlss.
+// This is the first tutorial of "simple_xmlss.hpp".
+// "simple_xmlss.hpp" can be downloaded from "https://github.com/Toymaker-UNO/SimpleXmlss".
 // "simple_xmlss.hpp" is licensed under the "MIT" License.
 
 // Include the "simple_xmlss.hpp" header file

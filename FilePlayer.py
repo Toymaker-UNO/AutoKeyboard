@@ -10,8 +10,8 @@ class FilePlayer:
         self.buffer = ''
         self.buffer_length = 0
         self.buffer_index = 0
-        self.comment_interval = 0.02
-        self.text_interval = 0.06
+        self.comment_interval = 0.03
+        self.text_interval = 0.08
 
     def set_comment_interval(self, a_interval):
         self.comment_interval = a_interval
