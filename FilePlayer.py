@@ -11,6 +11,7 @@ class FilePlayer:
         keyboard.add_hotkey(a_key, lambda: self.type_content(a_key))
 
     def type_content(self, a_key):
+        time.sleep(1)
         file_name = self.m_mappings[a_key]
         with open(file_name, 'r') as file:
             content = file.read()
@@ -26,6 +27,6 @@ class FilePlayer:
         keyboard.wait('esc')
 
 file_player = FilePlayer()
-file_player.register('F4', './01_URL.txt')
-file_player.register('F6', './02_ExampleCode.cpp')
+file_player.register('F4', './02_ExampleCode.cpp')
+file_player.register('F7', './03_Compile.txt')
 file_player.play()
