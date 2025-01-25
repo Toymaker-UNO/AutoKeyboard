@@ -1,3 +1,7 @@
+// "simple_xmlss.hpp" can be downloaded from https://github.com/Toymaker-UNO/SimpleXmlss.
+// "simple_xmlss.hpp" is licensed under the "MIT" License.
+
+// Include the "simple_xmlss.hpp" header file
 #include "simple_xmlss.hpp"
 
 int main() {

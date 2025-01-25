@@ -6,6 +6,9 @@ class FilePlayer:
     def __init__(self):
         self.m_mappings = {}
         self.comment_flag = 0
+        self.buffer = ''
+        self.buffer_length = 0
+        self.buffer_index = 0
 
     def register(self, a_key, a_file_name):
         self.m_mappings[a_key] = a_file_name
@@ -16,46 +19,48 @@ class FilePlayer:
         file_name = self.m_mappings[a_key]
         with open(file_name, 'r') as file:
             content = file.read()
+        self.initialize(len(content))
 
-        index = 0
-        buffer=''
-        length = len(content)
         for char in content:
-            self.mode_set(char)
-            buffer += char
-            index += 1
-            if index == length:
-                pyautogui.typewrite(buffer, interval=self.get_interval())
-                buffer = ''
-                break
-            if True == char.isspace():
-                pyautogui.typewrite(buffer, interval=self.get_interval())
-                buffer = ''
+            if self.buffering(char):
+                self.type_buffer()
     
+    def initialize(self, a_buffer_length):
+        self.comment_flag = 0
+        self.buffer = ''
+        self.buffer_length = a_buffer_length
+        self.buffer_index = 0
+
+    def buffering(self, a_char):
+        self.buffer += a_char
+        self.buffer_index += 1
+        if self.buffer_index == self.buffer_length:
+            return True
+        if '\n' == a_char:
+            return True
+        if 0 == self.comment_flag :
+            if '/' == a_char:
+                self.comment_flag = 1
+        elif 1 == self.comment_flag:
+            if '/' == a_char:
+                self.comment_flag = 2
+            else:
+                self.comment_flag = 0
+        return False
+    
+    def type_buffer(self):
+        pyautogui.typewrite(self.buffer, interval=self.get_interval())
+        self.buffer = ''
+        self.comment_flag = 0
+
     def play(self):
         print("Press 'esc' to exit.")
         keyboard.wait('esc')
-
-    def mode_set(self, char):
-        if '\n' == char:
-            self.comment_flag = 0
-            return
-        if 0 == self.comment_flag :
-            if '/' == char:
-                self.comment_flag = 1
-                return
-        elif 1 == self.comment_flag:
-            if '/' == char:
-                self.comment_flag = 2
-                return
-            else:
-                self.comment_flag = 0
-                return
             
     def get_interval(self):   #0.01 ~ 0.07
         if 2 == self.comment_flag:
-            return 0.01
-        return 0.03
+            return 0.02
+        return 0.05
 
 file_player = FilePlayer()
 file_player.register('F4', './02_ExampleCode.cpp')
