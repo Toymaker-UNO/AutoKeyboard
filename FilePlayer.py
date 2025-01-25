@@ -1,6 +1,7 @@
 import keyboard
 import pyautogui
 import time
+import sys
 
 class FilePlayer:
     def __init__(self):
@@ -9,6 +10,14 @@ class FilePlayer:
         self.buffer = ''
         self.buffer_length = 0
         self.buffer_index = 0
+        self.comment_interval = 0.02
+        self.text_interval = 0.06
+
+    def set_comment_interval(self, a_interval):
+        self.comment_interval = a_interval
+
+    def set_text_interval(self, a_interval):
+        self.text_interval = a_interval
 
     def register(self, a_key, a_file_name):
         self.m_mappings[a_key] = a_file_name
@@ -58,10 +67,17 @@ class FilePlayer:
             
     def get_interval(self):   #0.01 ~ 0.07
         if 2 == self.comment_flag:
-            return 0.02
-        return 0.06
+            return self.comment_interval
+        return self.text_interval
 
 file_player = FilePlayer()
+if len(sys.argv) > 1:
+    try:
+        text_interval = float(sys.argv[1])
+        file_player.set_text_interval(text_interval)
+        print(f"set_default_interval : {text_interval}")
+    except ValueError:
+        print("Invalid interval value. Using default interval.")
 file_player.register('F4', './02_ExampleCode.cpp')
 file_player.register('F7', './03_Compile.txt')
 file_player.play()
