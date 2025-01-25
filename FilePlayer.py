@@ -20,7 +20,6 @@ class FilePlayer:
         with open(file_name, 'r') as file:
             content = file.read()
         self.initialize(len(content))
-
         for char in content:
             if self.buffering(char):
                 self.type_buffer()
@@ -60,7 +59,7 @@ class FilePlayer:
     def get_interval(self):   #0.01 ~ 0.07
         if 2 == self.comment_flag:
             return 0.02
-        return 0.05
+        return 0.06
 
 file_player = FilePlayer()
 file_player.register('F4', './02_ExampleCode.cpp')
