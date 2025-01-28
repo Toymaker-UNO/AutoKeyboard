@@ -79,5 +79,5 @@ if len(sys.argv) > 1:
     except ValueError:
         print("Invalid interval value. Using default interval.")
 file_player.register('F4', './02_ExampleCode.cpp')
-file_player.register('F7', './03_Compile.txt')
+file_player.register('F7', './00_Compile.txt')
 file_player.play()

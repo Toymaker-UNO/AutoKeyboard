@@ -1,0 +1,1 @@
+g++ -W -Wall main.cpp -o make_spreadsheet
